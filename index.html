@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Пример модуля "выпадающего меню"</title>
+        <style>
+            .dd {
+                display: inline-block;
+            }
+            .dd div {
+                cursor: pointer;
+                padding: 5px 10px;
+                background: #ccc;
+            }
+            .dd.expanded div {
+                color: #fff;
+                background: #333;
+            }
+            .dd.expanded ul {
+                display: block;
+            }
+
+            .dd ul {
+                display: none;
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                box-shadow: 0 1px 3px rgba(0,0,0,.5);
+                list-style: none;
+            }
+            .dd li {
+                cursor: pointer;
+                padding: 5px 20px;
+            }
+            .dd li:hover {
+                color: #fff;
+                background: #666;
+            }
+
+            .dd li[disabled] {
+                color: #ccc;
+                cursor: text;
+                background: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="dd expanded">
+            <div>Menu</div>
+            <ul>
+                <li>item 1</li>
+                <li disabled="true">item 2</li>
+                <li>item 3</li>
+                <li>item 4</li>
+            </ul>
+        </div>
+
+        <script src="module.submenu.js"></script>
+        <script>
+            window.onload = function() {
+                console.log('test');
+                var submenu = new Submenu({
+                    selector: '.dd',
+                    isShow: true
+                });
+                submenu.on('click', function () {
+                    console.log('click!');
+                });
+                submenu.on('selectChild', function () {
+                    console.log('selectChild!');
+                    console.log(arguments[0]);
+                });
+                window.submenu = submenu;
+            };
+
+        </script>
+    </body>
+</html>
